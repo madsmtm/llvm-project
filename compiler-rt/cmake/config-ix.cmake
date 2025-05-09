@@ -472,7 +472,7 @@ if(APPLE)
     set(ORC_SUPPORTED_OS osx)
   endif()
 
-  set(DEFAULT_SANITIZER_MIN_OSX_VERSION 10.13)
+  set(DEFAULT_SANITIZER_MIN_OSX_VERSION 10.14)
   set(DARWIN_osx_MIN_VER_FLAG "-mmacosx-version-min")
 
   string(REGEX MATCH "${DARWIN_osx_MIN_VER_FLAG}=([.0-9]+)"
@@ -512,16 +512,9 @@ if(APPLE)
   endif()
 
   set(DARWIN_osx_CFLAGS
-    ${DARWIN_COMMON_CFLAGS}
-    ${DARWIN_osx_MIN_VER_FLAG}=${SANITIZER_MIN_OSX_VERSION})
+    ${DARWIN_COMMON_CFLAGS})
   set(DARWIN_osx_LINK_FLAGS
-    ${DARWIN_COMMON_LINK_FLAGS}
-    ${DARWIN_osx_MIN_VER_FLAG}=${SANITIZER_MIN_OSX_VERSION})
-
-  if(DARWIN_osx_SYSROOT)
-    list(APPEND DARWIN_osx_CFLAGS -isysroot ${DARWIN_osx_SYSROOT})
-    list(APPEND DARWIN_osx_LINK_FLAGS -isysroot ${DARWIN_osx_SYSROOT})
-  endif()
+    ${DARWIN_COMMON_LINK_FLAGS})
 
   # Figure out which arches to use for each OS
   darwin_get_toolchain_supported_archs(toolchain_arches)
